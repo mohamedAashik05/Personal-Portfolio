@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { FileDown, Mail, X } from 'lucide-react';
+import { FileDown, FileText, Mail, X } from 'lucide-react';
 import { personalInfo } from '../../data/portfolioData';
 
-export const QuickRecruiterBar: React.FC = () => {
+interface QuickRecruiterBarProps {
+  onOpenResume?: () => void;
+}
+
+export const QuickRecruiterBar: React.FC<QuickRecruiterBarProps> = ({ onOpenResume }) => {
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
 
@@ -35,15 +39,22 @@ export const QuickRecruiterBar: React.FC = () => {
 
         {/* Actions */}
         <div className="flex items-center gap-2 flex-1 sm:flex-initial justify-center">
+          <button
+            type="button"
+            onClick={onOpenResume}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:from-cyan-400 hover:to-blue-500 transition-all text-xs cursor-pointer shadow-md shadow-cyan-500/20"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            View Resume
+          </button>
+
           <a
             href={personalInfo.resumeFilePath}
             download={personalInfo.resumeFileName}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:from-cyan-400 hover:to-blue-500 transition-all text-xs"
+            className="p-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition-colors"
+            title="Download PDF"
           >
             <FileDown className="w-3.5 h-3.5" />
-            Resume PDF
           </a>
 
           <a

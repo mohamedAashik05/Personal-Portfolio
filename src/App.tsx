@@ -8,12 +8,14 @@ import { AboutSection } from './components/about/AboutSection';
 import { ContactSection } from './components/contact/ContactSection';
 import { Footer } from './components/layout/Footer';
 import { ProjectModal } from './components/common/ProjectModal';
+import { ResumeModal } from './components/common/ResumeModal';
 import { QuickRecruiterBar } from './components/common/QuickRecruiterBar';
 import type { Project } from './types/portfolio';
 import { projects } from './data/portfolioData';
 
 export function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>('home');
 
   // Track active section for navbar highlighting
@@ -49,12 +51,15 @@ export function App() {
   return (
     <div className="min-h-screen bg-[#07090e] text-slate-200 selection:bg-cyan-500/20 selection:text-cyan-300 relative">
       {/* Navbar */}
-      <Navbar activeSection={activeSection} />
+      <Navbar 
+        activeSection={activeSection} 
+        onOpenResume={() => setIsResumeOpen(true)}
+      />
 
       {/* Main Content */}
       <main id="main-content">
         {/* 1. Hero */}
-        <HeroSection />
+        <HeroSection onOpenResume={() => setIsResumeOpen(true)} />
 
         {/* 2. Interactive Specializations: How I Build */}
         <SpecializationSection onSelectProject={handleSelectProjectById} />
@@ -66,7 +71,7 @@ export function App() {
         <SkillsSection onSelectProjectById={handleSelectProjectById} />
 
         {/* 5. About & Education */}
-        <AboutSection />
+        <AboutSection onOpenResume={() => setIsResumeOpen(true)} />
 
         {/* 6. Contact & Recruiter Connect */}
         <ContactSection />
@@ -76,12 +81,18 @@ export function App() {
       <Footer />
 
       {/* Floating Recruiter Dock */}
-      <QuickRecruiterBar />
+      <QuickRecruiterBar onOpenResume={() => setIsResumeOpen(true)} />
 
       {/* Interactive Project Deep Dive Modal */}
       <ProjectModal 
         project={selectedProject} 
         onClose={() => setSelectedProject(null)} 
+      />
+
+      {/* Interactive Resume PDF Viewer Modal */}
+      <ResumeModal 
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
       />
     </div>
   );

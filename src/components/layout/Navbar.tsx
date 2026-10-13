@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { FileDown, Menu, X } from 'lucide-react';
+import { FileDown, FileText, Menu, X } from 'lucide-react';
 import { personalInfo } from '../../data/portfolioData';
 
 interface NavbarProps {
   activeSection: string;
+  onOpenResume?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeSection, onOpenResume }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -90,31 +91,36 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
         </nav>
 
         {/* Action Buttons: Resume & Contact */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-2">
+          <button
+            type="button"
+            onClick={onOpenResume}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5 cursor-pointer"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            View Resume
+          </button>
           <a
             href={personalInfo.resumeFilePath}
             download={personalInfo.resumeFileName}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5"
+            className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-white transition-colors"
+            title="Download PDF directly"
           >
-            <FileDown className="w-3.5 h-3.5" />
-            Resume PDF
+            <FileDown className="w-4 h-4" />
           </a>
         </div>
 
         {/* Mobile Hamburger Button */}
         <div className="flex md:hidden items-center gap-2">
-          <a
-            href={personalInfo.resumeFilePath}
-            download={personalInfo.resumeFileName}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-lg bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs"
-            aria-label="Download Resume"
+          <button
+            type="button"
+            onClick={onOpenResume}
+            className="p-2 rounded-lg bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs flex items-center gap-1"
+            aria-label="View Resume"
+            title="View Resume"
           >
-            <FileDown className="w-4 h-4" />
-          </a>
+            <FileText className="w-4 h-4" />
+          </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white"
@@ -148,23 +154,34 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
             </a>
           ))}
 
-          <div className="pt-3 border-t border-slate-800 flex gap-2">
-            <a
-              href={personalInfo.resumeFilePath}
-              download={personalInfo.resumeFileName}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-medium"
-            >
-              <FileDown className="w-4 h-4" />
-              Download Resume
-            </a>
+          <div className="pt-3 border-t border-slate-800 flex flex-col gap-2">
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenResume?.();
+                }}
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950"
+              >
+                <FileText className="w-4 h-4" />
+                View Resume
+              </button>
+              <a
+                href={personalInfo.resumeFilePath}
+                download={personalInfo.resumeFileName}
+                className="p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 flex items-center justify-center"
+                title="Download PDF"
+              >
+                <FileDown className="w-4 h-4" />
+              </a>
+            </div>
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-900 border border-slate-700 text-slate-200"
+              className="text-center py-2 rounded-xl text-xs font-semibold bg-slate-900/60 border border-slate-800 text-slate-300"
             >
-              Contact
+              Contact Me
             </a>
           </div>
         </div>

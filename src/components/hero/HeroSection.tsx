@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { 
   FileDown, 
+  FileText,
   ArrowRight, 
   Database, 
   Layers, 
@@ -9,7 +10,11 @@ import {
 } from 'lucide-react';
 import { personalInfo, heroSpecialties } from '../../data/portfolioData';
 
-export const HeroSection: React.FC = () => {
+interface HeroSectionProps {
+  onOpenResume?: () => void;
+}
+
+export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenResume }) => {
   const [activeConsoleTab, setActiveConsoleTab] = useState<'stack' | 'api' | 'db'>('stack');
 
   return (
@@ -55,15 +60,22 @@ export const HeroSection: React.FC = () => {
                 <ArrowRight className="w-4 h-4" />
               </a>
 
+              <button
+                type="button"
+                onClick={onOpenResume}
+                className="flex items-center gap-2 px-5 py-3.5 rounded-xl text-sm font-semibold bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/50 text-slate-200 transition-all transform hover:-translate-y-0.5 cursor-pointer shadow-md"
+              >
+                <FileText className="w-4 h-4 text-cyan-400" />
+                View Resume
+              </button>
+
               <a
                 href={personalInfo.resumeFilePath}
                 download={personalInfo.resumeFileName}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3.5 rounded-xl text-sm font-semibold bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/50 text-slate-200 transition-all transform hover:-translate-y-0.5"
+                className="p-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-white transition-colors"
+                title="Download PDF directly"
               >
-                <FileDown className="w-4 h-4 text-cyan-400" />
-                Download Resume
+                <FileDown className="w-4 h-4" />
               </a>
 
               <a

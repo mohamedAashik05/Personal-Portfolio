@@ -4,11 +4,18 @@ import {
   GraduationCap, 
   Award, 
   BookOpen, 
-  CheckCircle2 
+  CheckCircle2,
+  FileText,
+  Eye,
+  FileDown
 } from 'lucide-react';
 import { educationInfo, certificationInfo, researchInfo, personalInfo } from '../../data/portfolioData';
 
-export const AboutSection: React.FC = () => {
+interface AboutSectionProps {
+  onOpenResume?: () => void;
+}
+
+export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenResume }) => {
   const engineeringPillars = [
     {
       title: 'Designing Maintainable APIs',
@@ -154,6 +161,45 @@ export const AboutSection: React.FC = () => {
               <p className="text-xs text-slate-400 leading-relaxed">
                 {researchInfo.summary}
               </p>
+            </div>
+
+            {/* Official Resume Document Card */}
+            <div className="bg-[#0a0e17] rounded-3xl border border-cyan-500/30 p-6 hover:border-cyan-400/60 transition-all relative overflow-hidden group shadow-lg shadow-cyan-500/5">
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-2.5 rounded-xl bg-cyan-950/40 border border-cyan-800/40 text-cyan-400">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <span className="text-xs font-mono text-cyan-300 bg-cyan-500/10 px-2.5 py-1 rounded-full border border-cyan-500/20">
+                  1-Page PDF • Updated 2026
+                </span>
+              </div>
+              <div className="text-xs font-mono text-slate-400 mb-1">
+                Curriculum Vitae
+              </div>
+              <h4 className="text-base font-bold text-white mb-2">
+                Official Technical Resume
+              </h4>
+              <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                Structured overview covering .NET Web API engineering, React.js frontend work, RAG & MCP architectures, databases, and certifications.
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={onOpenResume}
+                  className="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-md shadow-cyan-500/20 transition-all cursor-pointer"
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  Preview in Portfolio
+                </button>
+                <a
+                  href={personalInfo.resumeFilePath}
+                  download={personalInfo.resumeFileName}
+                  className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition-colors"
+                  title="Direct Download PDF"
+                >
+                  <FileDown className="w-4 h-4" />
+                </a>
+              </div>
             </div>
 
           </div>
