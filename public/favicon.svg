@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="16" fill="#090d16" />
+  <rect x="2" y="2" width="60" height="60" rx="14" stroke="#00e5ff" stroke-opacity="0.3" stroke-width="2" />
+  <path d="M18 46L32 18L46 46H38L32 32L26 46H18Z" fill="url(#cyan_grad)" />
+  <circle cx="32" cy="27" r="3" fill="#00e5ff" />
+  <defs>
+    <linearGradient id="cyan_grad" x1="18" y1="18" x2="46" y2="46" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00e5ff" />
+      <stop offset="1" stop-color="#3b82f6" />
+    </linearGradient>
+  </defs>
+</svg>
