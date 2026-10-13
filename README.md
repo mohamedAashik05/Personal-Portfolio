@@ -74,19 +74,4 @@ npm run preview
 
 ---
 
-## 🌐 Deployment to Vercel
 
-### Option 1: Vercel CLI
-```bash
-npm install -g vercel
-vercel
-```
-
-### Option 2: GitHub Integration
-1. Push repository to GitHub (`mohamedAashik05/portfolio`).
-2. Import project into [Vercel](https://vercel.com).
-3. Framework preset: **Vite**.
-4. Root directory: `./`.
-5. Build command: `npm run build`.
-6. Output directory: `dist`.
-7. Click **Deploy**.
